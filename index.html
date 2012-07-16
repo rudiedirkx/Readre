@@ -50,6 +50,9 @@
 	.readre-anti-orphan {
 		background: lightblue;
 	}
+	.readre-reference-child {
+		background: red;
+	}
 	</style>
 </head>
 
@@ -103,7 +106,7 @@ var readre = (function(el) {
 		containerHeight, containerWidth,
 		children, Lc,
 		buffer, pages,
-		page,
+		page, position, referenceChild, topChildNo,
 		events,
 		R;
 
@@ -217,13 +220,30 @@ var readre = (function(el) {
 
 		fireEvent('reflow');
 
-		// Open page 1
-		showPage(0);
+		// Open page
+//		showPage(position ? Math.floor(position * pages.length) : 0, true);
+		showPage(topChildNo ? pageByChildNo(topChildNo) : 0, true);
+
+		// Hilite reference child?
+		if ( topChildNo ) {
+			children[topChildNo].classList.add('readre-reference-child');
+		}
 	}
 
-	function showPage(n) {
+	function pageByChildNo(no) {
+		for ( i=0, L=pages.length; i<L; i++ ) {
+			if ( -1 != pages[i].indexOf(no) ) {
+				return i;
+			}
+		}
+	}
+
+	function showPage(n, internal) {
 		// Clear el
 		moveElToBuffer();
+
+		isNaN(n) && (n = 0);
+		n = Math.max(0, Math.min(pages.length-1, n));
 
 		for ( i=0, P = pages[n], L=P.length; i<L; i++ ) {
 			el.appendChild(children[P[i]]);
@@ -231,6 +251,17 @@ var readre = (function(el) {
 
 		R.page = page = n;
 		fireEvent('page');
+
+		if ( !internal ) {
+			position = (page / pages.length) || 0;
+			topChildNo = P[0];
+
+			// Remove reference hilite
+			if ( referenceChild = el.querySelector('.readre-reference-child') ) {
+				referenceChild.classList.remove('readre-reference-child');
+				topChildNo = null;
+			}
+		}
 
 		return false;
 	}
