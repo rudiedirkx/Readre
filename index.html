@@ -42,7 +42,7 @@
 	#pager a {
 		text-decoration: none;
 	}
-	#pager a + a:before {
+	#pager > * + *:before {
 		content: " | ";
 	}
 
@@ -88,30 +88,43 @@
 </div>
 
 <div id="pager">
-	<a href="#" onclick="return showPage(Math.max(0, page-1))">Prev</a>
-	<a href="#" onclick="return showPage(Math.min(pages.length-1, page+1))">Next</a>
+	<span>Page <span id="page-n">?</span> / <span id="n-pages">?</span></span>
+	<a href="#" onclick="return readre.showPage(Math.max(0, readre.page-1))">Prev</a>
+	<a href="#" onclick="return readre.showPage(Math.min(readre.pages.length-1, readre.page+1))">Next</a>
 </div>
 
 <script>
 var el = document.getElementById('lipsum');
-//(function(el) {
+var readre = (function(el) {
 
 	// Environment
 	var contentHeight, contentWidth,
 		containerHeight, containerWidth,
 		children, Lc,
 		buffer, pages,
-		page;
+		page,
+		events,
+		R;
 
 	// Process
 	var i, L, Hs, P, Hns, nextEl, div, nextNextEl, Hel;
 
+	// Let's fire her up
+	pages = [];
+	events = {};
+
 	init();
-	reinit();
+//	reinit();
 
 	// Do this once
 	function init() {
 		buffer = document.createElement('div');
+
+		// This is expensive...
+		// @TODO -- Add 500ms (?) timer to trigger if resized?
+		window.addEventListener('resize', function(e) {
+			reflow();
+		});
 	}
 
 	// Do this when the content changes
@@ -128,7 +141,6 @@ var el = document.getElementById('lipsum');
 		// Combine Hn + * so that Hn's are never orphaned
 		// @TODO -- THIS IS A HACK and should be improved, preferably by
 		// something shadow-dom or other unobtrusive tek
-/**/
 		Hns = el.querySelectorAll('h1, h2, h3, h4, h5, h6');
 		for ( i=0, L=Hns.length; i<L; i++ ) {
 			Hel = Hns[i]
@@ -151,7 +163,6 @@ var el = document.getElementById('lipsum');
 				}
 			}
 		}
-/**/
 
 		// The list of children won't change
 		children = [].slice.call(el.childNodes);
@@ -159,6 +170,8 @@ var el = document.getElementById('lipsum');
 
 		// Calculate pages
 		reflow();
+
+		return R;
 	}
 
 	// Do this when the boundaries change (content, screen size, font size etc)
@@ -174,7 +187,8 @@ var el = document.getElementById('lipsum');
 			moveToBuffer(children[i]);
 		}
 
-		pages = [[]];
+		pages.length = 0;
+		pages.push([]);
 
 		// Calculate pages
 		for ( p = 0, i=0; i<Lc; i++ ) {
@@ -198,7 +212,9 @@ var el = document.getElementById('lipsum');
 			}
 		}
 
-debugPages();
+//debugPages();
+
+		fireEvent('reflow');
 
 		// Open page 1
 		showPage(0);
@@ -212,8 +228,10 @@ debugPages();
 			el.appendChild(children[P[i]]);
 		}
 
-		page = n;
-return false;
+		R.page = page = n;
+		fireEvent('page');
+
+		return false;
 	}
 
 	function moveToEl(child, bottom) {
@@ -247,7 +265,43 @@ return false;
 		console.log('Pages: [' + d.join('] [') + ']');
 	}
 
-//})(el);
+	// Events
+
+	function addEvent(type, callback) {
+		events[type] || (events[type] = []);
+		events[type].push(callback);
+
+		return R;
+	}
+
+	function fireEvent(type) {
+		if ( events[type] ) {
+			for ( E=events[type], i=0, L=E.length; i<L; i++ ) {
+				E[i].call(R);
+			}
+		}
+	}
+
+	return R = {
+		reinit: reinit,
+		pages: pages,
+		addEvent: addEvent,
+		showPage: showPage,
+		page: page
+	};
+
+})(el);
+
+readre
+	.addEvent('reflow', function() {
+		console.log('reflow', this);
+		document.getElementById('n-pages').textContent = this.pages.length;
+	})
+	.addEvent('page', function() {
+		console.log('page', this);
+		document.getElementById('page-n').textContent = this.page + 1;
+	})
+	.reinit();
 </script>
 
 </body>
