@@ -1,0 +1,255 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>Inline reader</title>
+	<style>
+	html, body {
+		margin: 0;
+		padding: 0;
+		height: 100%;
+	}
+	#lipsum {
+		position: absolute;
+		top: 20px;
+		bottom: 40px;
+		left: 20px;
+		right: 20px;
+		background: #eee;
+		overflow: hidden;
+	}
+	#lipsum h1,
+	#lipsum h2,
+	#lipsum h3,
+	#lipsum h4,
+	#lipsum p {
+		margin: 1em 0;
+	}
+	#lipsum > :first-child,
+	#lipsum .readre-anti-orphan > :first-child {
+		margin-top: 0;
+	}
+	#pager {
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		width: 100%;
+		line-height: 40px;
+		text-align: center;
+	}
+	#pager a {
+		text-decoration: none;
+	}
+	#pager a + a:before {
+		content: " | ";
+	}
+
+	.readre-anti-orphan {
+		background: lightblue;
+	}
+	</style>
+</head>
+
+<body>
+
+<div id="lipsum">
+	<h2>Chapter 1</h2>
+	<p>1 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce tempor ullamcorper diam sed dignissim. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aliquam et arcu orci. Sed lorem diam, vulputate ac rhoncus in, eleifend vestibulum quam. In sit amet lacus justo. Vestibulum quis diam id dolor ultrices posuere vitae ac sapien. Donec odio tortor, sagittis in ultrices et, porta et mi. Etiam vehicula lectus vitae sapien elementum convallis. Vivamus iaculis orci sem. In aliquet purus at nisi molestie eleifend posuere massa tincidunt. Vestibulum interdum ullamcorper purus, viverra gravida justo ultrices eget. Mauris mollis lectus id eros imperdiet molestie. Ut eget purus sed lorem euismod egestas id id augue. Maecenas sollicitudin odio sit amet risus blandit feugiat. Maecenas aliquet iaculis nibh, et venenatis augue porta a. Vivamus elementum euismod mi, non mattis velit consectetur non.</p>
+	<p>2 Nullam sit amet lectus a ligula tempor lobortis et id lacus. Sed nec ante diam, et luctus dui. Sed tincidunt purus vel ipsum dapibus rhoncus. Duis sed feugiat velit. Aliquam eu ante ac dui commodo rhoncus et eu odio. Quisque libero lorem, rutrum at elementum et, viverra eu dui. Sed auctor aliquam ligula eu suscipit. Maecenas id urna ut quam vulputate molestie eu ut nibh. Nullam nec lacinia elit. Pellentesque molestie dolor sit amet risus vestibulum posuere. Duis sodales lacinia est eu congue.</p>
+	<h2>Chapter 2</h2>
+	<p>3 Nullam tempus, dolor in pretium ultricies, elit felis pretium erat, sed tincidunt enim risus ac orci. Donec nec metus magna, nec ornare neque. Aenean volutpat fermentum mi. Nam interdum ultrices vestibulum. Mauris placerat sollicitudin sodales. Fusce consectetur, metus eget aliquam tincidunt, velit enim feugiat nisl, eget fringilla nunc libero eu est. Pellentesque et nunc et arcu bibendum vulputate. Cras mi leo, blandit sed hendrerit vitae, ornare a libero. Nunc ut pulvinar lorem.</p>
+	<p>4 Donec nisi velit, pharetra eget pulvinar vel, interdum non lacus. Nunc dolor lectus, hendrerit in accumsan non, scelerisque in dolor. Nulla at tempus purus. Aliquam nibh mauris, bibendum a tempor sed, pharetra dictum sem. Phasellus tincidunt, mi id scelerisque bibendum, neque ante pulvinar arcu, eget consectetur mauris tellus vel nunc. Mauris blandit auctor vehicula. Cras ut elit ut ipsum venenatis facilisis et vitae sem. Phasellus justo tellus, ullamcorper et tristique in, ultrices nec dolor.</p>
+	<p>5 In tincidunt varius neque, condimentum interdum massa placerat ac. Maecenas vel purus justo. In ut neque risus. Morbi enim enim, consectetur at vulputate placerat, rhoncus non tellus. Quisque ullamcorper tincidunt sapien vitae commodo. Nam quis metus sit amet arcu ultrices porta nec id felis. Ut non purus sit amet mauris viverra fringilla. Aenean aliquam semper nunc, in mattis velit malesuada at. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Integer id nibh eget quam imperdiet varius at ac nulla. Proin quis porttitor neque. Nunc dolor arcu, tincidunt ut elementum et, molestie et diam. Quisque congue purus sed enim tincidunt eleifend. Mauris libero nisi, cursus ullamcorper fermentum in, sollicitudin eu velit. Cras feugiat nulla quis neque consectetur nec suscipit velit pulvinar.</p>
+	<p>6 Proin pretium tincidunt nisi in sollicitudin. Cras aliquam, felis eget viverra tristique, sem tellus euismod ante, nec auctor ipsum nisl nec odio. Maecenas porta, mauris eget commodo dictum, neque eros vulputate eros, sed congue turpis dolor sit amet lacus. Proin ullamcorper viverra pretium. Nam placerat egestas lacus, non consectetur enim convallis sit amet. Cras aliquet sapien ut ipsum ultricies tincidunt. Ut sit amet lectus turpis, sed feugiat mauris. Praesent eget orci quam, eu dapibus diam. Mauris felis arcu, lacinia id condimentum quis, gravida in dui. Sed mollis molestie pellentesque.</p>
+	<p>7 Suspendisse ac tellus libero. In malesuada velit a augue consectetur sed cursus nisl iaculis. Pellentesque sagittis consequat neque vel facilisis. Nullam in est magna. Aliquam in odio a lorem vehicula vehicula non id tortor. Nulla vitae enim nec ipsum ornare lobortis. Phasellus at mi at sem convallis commodo ac ac ligula. Nulla nunc est, tristique ac gravida at, semper non quam.</p>
+	<p>8 Quisque dapibus risus vitae magna laoreet dignissim. Vestibulum dignissim mollis nisi sed fermentum. Etiam tempus ultrices nibh, et ullamcorper lectus viverra nec. Curabitur sem ante, tristique sed mollis non, condimentum ac sem. Praesent auctor dapibus tincidunt. Suspendisse et nibh et quam iaculis faucibus. Vivamus ullamcorper sapien ut justo scelerisque eget tincidunt nibh imperdiet. Vivamus rutrum, tellus id eleifend commodo, ante metus dictum augue, eget egestas dui metus a ligula. Proin nec mauris bibendum urna fermentum scelerisque vitae eget urna.</p>
+	<h2>Chapter 3</h2>
+	<p>9 Mauris velit libero, tincidunt quis viverra a, bibendum quis metus. Duis ligula tortor, feugiat id varius in, pulvinar a urna. Aenean lacus nulla, semper lacinia imperdiet a, consequat at dui. Nullam sit amet laoreet felis. Pellentesque ut dapibus augue. Etiam egestas, metus nec lobortis gravida, nibh urna consequat nisl, at pulvinar dui nulla eget leo. Suspendisse porttitor suscipit est, nec venenatis sem lacinia vulputate. Morbi odio neque, mattis ut ornare viverra, sagittis id neque. In vel neque at tellus lobortis placerat. Donec sem ipsum, pulvinar a convallis a, ornare sed tortor. Nam varius est lacinia nisl varius a lacinia risus bibendum. Etiam in ipsum in nulla laoreet rhoncus sed a dolor. Suspendisse mollis iaculis libero nec cursus. Quisque ut augue vitae neque bibendum rhoncus aliquet id mi. Morbi odio massa, mattis in dictum eu, interdum vitae erat. Nulla a lectus id tortor viverra sodales.</p>
+	<p>10 Aenean pretium consectetur arcu, ac egestas enim egestas eget. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Phasellus sit amet lorem lorem, eget aliquam dolor. Vivamus neque urna, consectetur non sollicitudin quis, varius eu nisi. Suspendisse potenti. Pellentesque velit sapien, dictum sit amet lacinia et, euismod quis dui. Donec laoreet, tortor eget eleifend luctus, lectus neque tincidunt nunc, non porttitor tellus elit vel nisl. Aenean imperdiet, sapien nec convallis pharetra, velit dolor vulputate ligula, vitae dapibus odio turpis sed diam. Vestibulum magna lacus, sodales vel auctor eu, ullamcorper ut lectus. Nam auctor porttitor lacus eget scelerisque.</p>
+	<p>11 Aliquam est dolor, suscipit vel dignissim id, tempus pharetra orci. Aenean tempus nunc id sem imperdiet placerat. In tempus libero vitae quam blandit gravida. Sed dictum dolor sit amet velit tincidunt dictum. Quisque suscipit feugiat eros a pulvinar. Maecenas consectetur facilisis ligula, sed elementum arcu consequat vitae. Nullam a orci eu massa elementum rhoncus. Maecenas eu lectus mi, nec hendrerit dui. Mauris sem nisi, lacinia sit amet adipiscing sed, mollis ac dolor. Duis fringilla dolor vitae sem pellentesque vel viverra ipsum cursus.</p>
+	<p>12 Proin imperdiet interdum ligula quis euismod. Ut vel risus nec risus tincidunt ultricies quis quis lorem. Suspendisse potenti. Cras sit amet quam sem. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel euismod eros. Mauris ultricies tempor pretium. Suspendisse iaculis, odio at facilisis lacinia, augue mauris hendrerit neque, a accumsan odio diam sed dui. Donec hendrerit gravida felis, non convallis leo ullamcorper at. Suspendisse potenti. Vivamus at ipsum a lacus varius ornare id hendrerit lectus. Morbi condimentum commodo laoreet. Donec gravida, justo eget euismod consequat, tortor enim eleifend nibh, non egestas ligula arcu at nibh.</p>
+	<p>13 Curabitur quis eros nisi, ut imperdiet massa. Phasellus quis felis ut purus feugiat cursus sed ac turpis. Nulla convallis gravida risus, vitae ultricies eros accumsan nec. Maecenas arcu arcu, pretium in tempus vitae, gravida at mauris. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Vestibulum vel dictum urna. Donec vitae adipiscing odio.</p>
+	<p>14 Phasellus metus velit, interdum ut varius vel, bibendum in neque. Nulla accumsan blandit dolor, ac iaculis quam cursus at. Mauris commodo eros sit amet elit fermentum egestas. Duis nisi felis, tincidunt et sollicitudin quis, placerat et mi. Etiam mauris lorem, blandit vitae convallis quis, lobortis nec turpis. Suspendisse et felis dui. In dapibus, enim id pharetra pharetra, odio lorem posuere eros, in imperdiet sapien tellus id leo. Etiam lectus orci, euismod sed fringilla sit amet, pulvinar sit amet eros. Aliquam ac sem sapien, id vestibulum ligula. Maecenas ac nibh id turpis ultrices congue eu sit amet mauris. Vivamus luctus lobortis neque, in pharetra felis auctor vitae. In a enim id erat iaculis fermentum quis pretium sapien. Vivamus consequat sapien quam, ac pretium risus.</p>
+	<p>15 Nulla vitae mi a tortor auctor congue dapibus quis nunc. Suspendisse sodales pellentesque odio. Integer convallis ullamcorper euismod. Morbi dignissim congue velit tristique commodo. Quisque tincidunt placerat convallis. In ipsum justo, dictum ut imperdiet quis, aliquam eu tellus. Donec faucibus fermentum sodales. Mauris semper sem non mauris iaculis vitae imperdiet mi vestibulum. Aliquam eleifend posuere laoreet. Duis aliquam, nisi condimentum condimentum lobortis, metus risus porttitor lacus, vel iaculis nisi purus ac ante. Proin vel mauris leo, quis rhoncus purus. Sed non justo euismod mauris molestie aliquet. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Morbi eu velit lacus. Sed faucibus justo et felis bibendum feugiat.</p>
+	<p>16 Etiam hendrerit, purus et lacinia sagittis, libero nulla rutrum neque, eu euismod metus enim a diam. Maecenas ultricies molestie est, vitae iaculis urna lobortis quis. Maecenas sit amet urna odio. Nulla velit felis, faucibus sed accumsan et, lobortis non tellus. Donec sed arcu felis. Maecenas pharetra commodo volutpat. Nunc gravida aliquam leo, vel facilisis dui suscipit in. Vestibulum ac mauris fringilla dolor porttitor blandit. Phasellus placerat viverra nunc, eleifend sagittis velit pretium vitae. Quisque elementum dolor sollicitudin odio rhoncus non egestas diam porttitor. Pellentesque a arcu sed augue cursus scelerisque sed quis tortor. Fusce ultricies turpis lobortis lorem varius vitae tincidunt mauris faucibus. Duis mi lorem, lobortis eu porta tristique, sollicitudin nec diam. Praesent ac odio eget lorem tincidunt tincidunt nec ut nibh. Phasellus at lorem ac ipsum tempus mollis.</p>
+	<p>17 Pellentesque interdum dapibus varius. Mauris felis felis, feugiat quis commodo id, eleifend eu lacus. Cras feugiat nulla nec purus iaculis consequat auctor odio dictum. In vel ligula in enim blandit ultrices. Sed venenatis malesuada est, et consectetur neque suscipit et. Pellentesque scelerisque dapibus enim auctor commodo. Morbi suscipit dignissim sem, eu dapibus justo fringilla non. Integer in leo quis arcu rhoncus lobortis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut justo elit, ac semper elit. Sed massa sapien, aliquam ac sagittis eu, eleifend at nunc. Vivamus urna nisl, pretium nec rutrum id, pretium ac sapien.</p>
+	<p>18 Aliquam sodales nunc vitae justo rutrum eget feugiat nibh congue. Vivamus sollicitudin, leo quis cursus eleifend, tortor nisl adipiscing quam, eget ornare justo sapien ac nisl. Vestibulum sed quam non augue sodales convallis. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Etiam ornare nisi molestie quam consectetur et fringilla massa ullamcorper. Donec placerat leo id arcu tempus condimentum. Donec eget mi quis magna consequat suscipit sit amet sed sapien. Ut pretium felis quam. Vestibulum egestas lectus at libero facilisis fermentum. Nunc id interdum dolor. Proin tincidunt ultricies eros vehicula dapibus. Vestibulum aliquam tristique nunc eget sollicitudin. Sed non lorem eros. Cras eu mauris elit, quis facilisis magna.</p>
+	<p>19 Proin a erat interdum justo pharetra viverra. Nullam eu elit fermentum ligula vulputate pellentesque. Vivamus lacinia arcu quis massa viverra tempus. Donec sit amet mi eu justo congue posuere. Nullam quam lorem, interdum et luctus in, suscipit ut nunc. Nam nec sapien ut urna viverra euismod. In eleifend justo quis dolor sollicitudin quis tempus turpis dictum. Vivamus justo augue, viverra vel lacinia volutpat, porta at orci. Aenean augue urna, suscipit in ultricies sit amet, consectetur eget leo. Pellentesque porta ornare eleifend. Donec lacinia, arcu vel aliquet adipiscing, massa nulla iaculis odio, vel lobortis orci justo eu lectus. Proin metus dui, sagittis ac vehicula at, porta quis dolor. Donec faucibus ullamcorper risus, non posuere tellus tempor ornare. Praesent pulvinar mauris vel diam eleifend suscipit. Suspendisse et facilisis arcu.</p>
+	<h2>Chapter 4</h2>
+	<p>20 Nunc viverra massa a orci euismod sed faucibus nisl vestibulum. Aliquam porttitor tristique ultrices. Aenean congue interdum tellus at placerat. Nulla lacinia dictum libero, sit amet ullamcorper dui aliquam ut. Donec rutrum erat eget sem pulvinar luctus accumsan diam tempor. Morbi sollicitudin ipsum et sapien consequat egestas. Maecenas et fermentum justo. Suspendisse augue libero, ornare sit amet bibendum eget, faucibus et dui. Nullam sed est ac diam scelerisque elementum. Proin velit quam, scelerisque at molestie id, porttitor ac justo.</p>
+	<p>21 Ut non odio in magna porttitor condimentum et non leo. Pellentesque semper felis in risus eleifend ut viverra diam hendrerit. Donec vehicula lacus vel dolor ullamcorper ullamcorper. Sed sed felis massa. Maecenas at erat ac nisl consequat auctor varius vitae quam. Donec justo nisl, iaculis a elementum nec, tristique eu risus. Curabitur placerat ante et massa imperdiet pretium volutpat augue ultricies. Aenean aliquet tempor cursus. Aenean blandit fringilla mi, quis molestie erat ornare non.</p>
+	<p>22 Ut in tellus a ipsum consectetur ultricies. Fusce consectetur, ante at mollis ullamcorper, ligula quam vehicula urna, vel vulputate sapien mauris sed tellus. Morbi sagittis porttitor lorem, sed interdum est fringilla eget. Suspendisse tempus, leo ut tristique aliquet, nibh enim sollicitudin sem, quis aliquet risus odio sollicitudin eros. Maecenas bibendum vehicula erat. Etiam placerat molestie lobortis. Nullam tempus magna at turpis adipiscing congue. Praesent hendrerit, nunc nec tincidunt placerat, ligula risus consequat metus, a adipiscing ante ipsum sit amet ante. Pellentesque a leo tellus, sit amet placerat sapien. In non ultrices risus. Curabitur sapien quam, faucibus eget convallis sit amet, adipiscing quis neque. Maecenas tristique sem vel dui posuere euismod. Praesent venenatis nunc sed arcu vulputate consequat. Vivamus aliquam tempus luctus. Nam sed augue metus. Aenean ac tellus nulla.</p>
+	<p>23 Aliquam sed semper nisl. Quisque semper dignissim dui et aliquet. Quisque elementum facilisis lectus, sit amet faucibus lectus ultrices eu. Nullam posuere nunc sed mauris molestie volutpat. Aliquam vitae elementum diam. Maecenas rutrum, orci a aliquam tristique, ante enim imperdiet diam, ac luctus ipsum mauris a velit. Duis suscipit cursus massa, a faucibus massa sodales sed. Vivamus quis mattis lectus. Duis non est mi. Sed mollis orci at mi semper dignissim.</p>
+	<p>24 Maecenas sodales lacinia diam sed congue. Maecenas odio eros, varius eget lobortis nec, ornare sed leo. Fusce vestibulum diam in dui ultricies sed luctus lacus ornare. Quisque mollis magna fermentum massa rhoncus id cursus risus sollicitudin. Proin et mauris eget libero semper fermentum non sit amet elit. Aenean lacus mauris, ultrices nec laoreet vel, suscipit et justo. Nunc dignissim libero eget dolor lobortis et hendrerit tortor sodales. Sed ligula urna, porta eu varius fermentum, rhoncus et nisl. Quisque nec odio sed nisl dictum adipiscing vel in leo. Duis pharetra fermentum scelerisque. Nam et aliquet nunc.</p>
+	<h2>Chapter 5</h2>
+	<p>25 Proin condimentum rhoncus lectus eget commodo. Donec scelerisque, justo a mattis rutrum, est est blandit felis, commodo posuere ligula eros et elit. Nam vitae suscipit sem. Mauris vel commodo velit. Donec lorem enim, vestibulum at ullamcorper ut, scelerisque sit amet magna. Donec sodales facilisis risus, in porttitor nibh luctus semper. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec congue lobortis turpis at interdum. Curabitur porttitor, justo ac tempor sollicitudin, enim lorem dapibus nunc, suscipit eleifend odio nunc eget tortor. Phasellus lobortis purus id nisl aliquet suscipit. Suspendisse elementum felis ut elit scelerisque a euismod elit mattis. Etiam sed congue sapien.</p>
+</div>
+
+<div id="pager">
+	<a href="#" onclick="return showPage(Math.max(0, page-1))">Prev</a>
+	<a href="#" onclick="return showPage(Math.min(pages.length-1, page+1))">Next</a>
+</div>
+
+<script>
+var el = document.getElementById('lipsum');
+//(function(el) {
+
+	// Environment
+	var contentHeight, contentWidth,
+		containerHeight, containerWidth,
+		children, Lc,
+		buffer, pages,
+		page;
+
+	// Process
+	var i, L, Hs, P, Hns, nextEl, div, nextNextEl, Hel;
+
+	init();
+	reinit();
+
+	// Do this once
+	function init() {
+		buffer = document.createElement('div');
+	}
+
+	// Do this when the content changes
+	function reinit() {
+		// Remove white-space
+		for ( i=0, C=el.childNodes, L=C.length; i<L; i++ ) {
+			if ( C[i].nodeType != Node.ELEMENT_NODE ) {
+				el.removeChild(C[i]);
+				i--;
+				L--;
+			}
+		}
+
+		// Combine Hn + * so that Hn's are never orphaned
+		// @TODO -- THIS IS A HACK and should be improved, preferably by
+		// something shadow-dom or other unobtrusive tek
+/**/
+		Hns = el.querySelectorAll('h1, h2, h3, h4, h5, h6');
+		for ( i=0, L=Hns.length; i<L; i++ ) {
+			Hel = Hns[i]
+			nextEl = Hel.nextSibling;
+
+			if ( !/^H\d$/.test(nextEl.nodeName) ) {
+				nextNextEl = nextEl.nextSibling;
+
+				div = document.createElement('div');
+				div.classList.add('readre-anti-orphan');
+				div.appendChild(Hel);
+				div.appendChild(nextEl);
+
+				// Reappend to el
+				if ( nextNextEl ) {
+					el.insertBefore(div, nextNextEl);
+				}
+				else {
+					el.appendChild(div);
+				}
+			}
+		}
+/**/
+
+		// The list of children won't change
+		children = [].slice.call(el.childNodes);
+		Lc = children.length;
+
+		// Calculate pages
+		reflow();
+	}
+
+	// Do this when the boundaries change (content, screen size, font size etc)
+	function reflow() {
+		containerHeight = el.offsetHeight;
+		containerWidth = el.offsetWidth;
+
+		contentHeight = el.scrollHeight;
+		contentWidth = el.scrollWidth;
+
+		// Save elements to buffer
+		for ( i=0; i<Lc; i++ ) {
+			moveToBuffer(children[i]);
+		}
+
+		pages = [[]];
+
+		// Calculate pages
+		for ( p = 0, i=0; i<Lc; i++ ) {
+			moveToEl(children[i], true);
+			pages[p].push(i);
+
+			Hs = el.scrollHeight;
+
+			if ( Hs > containerHeight ) {
+				// Move last element back to buffer
+				moveToBuffer(el.lastChild);
+				pages[p].pop();
+
+				// Next page
+				i--;
+				p++;
+				pages.push([]);
+
+				// Clear el
+				moveElToBuffer();
+			}
+		}
+
+debugPages();
+
+		// Open page 1
+		showPage(0);
+	}
+
+	function showPage(n) {
+		// Clear el
+		moveElToBuffer();
+
+		for ( i=0, P = pages[n], L=P.length; i<L; i++ ) {
+			el.appendChild(children[P[i]]);
+		}
+
+		page = n;
+return false;
+	}
+
+	function moveToEl(child, bottom) {
+		if ( bottom || !el.firstChild ) {
+			el.appendChild(child);
+		}
+		else {
+			el.insertBefore(child, el.firstChild);
+		}
+	}
+
+	function moveElToBuffer() {
+		while ( el.firstChild ) {
+			moveToBuffer(el.firstChild);
+		}
+	}
+
+	function moveToBuffer(child) {
+		buffer.appendChild(child);
+	}
+
+	function debugPages() {
+		var d = [], d2 = [];
+		for ( var i=0, L=pages.length; i<L; i++ ) {
+			d2 = [];
+			for ( var j=0, M=pages[i].length; j<M; j++ ) {
+				d2.push(children[pages[i][j]].textContent.split(' ')[0])
+			}
+			d.push(d2.join(', '))
+		}
+		console.log('Pages: [' + d.join('] [') + ']');
+	}
+
+//})(el);
+</script>
+
+</body>
+
+</html>
