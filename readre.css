@@ -4,6 +4,10 @@ html, body {
 	padding: 0;
 	height: 100%;
 }
+body {
+	font-family: arial;
+	font-size: 12px;
+}
 #lipsum {
 	position: absolute;
 	top: 20px;
@@ -40,7 +44,7 @@ html, body {
 }
 
 .readre-anti-orphan {
-	background: rgba(173, 216, 230, 0.5);
+	x-background: rgba(173, 216, 230, 0.2);
 }
 .readre-reference-child {
 	position: relative;

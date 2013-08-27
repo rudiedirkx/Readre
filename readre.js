@@ -127,7 +127,7 @@ function Readre(el) {
 			}
 		}
 
-debugPages();
+// debugPages();
 
 		fireEvent('reflow');
 

@@ -52,21 +52,36 @@
 
 <script src="readre.js"></script>
 <script>
-var readre = Readre(document.getElementById('lipsum')); // .reinit();
+var readre;
 
-/**/
-readre
-	.addEvent('reflow', function() {
-		console.log('reflow', this);
-		document.getElementById('n-pages').textContent = this.pages.length;
-	})
-	.addEvent('page', function() {
-		console.log('page', this);
-		document.getElementById('page-n').textContent = this.page + 1;
-	})
-	.reinit()
-;
-/**/
+var xhr = new XMLHttpRequest;
+xhr.open('get', 'wollstonecraft-book-one.html', true); // This is a copyrighted book, so you don't have it
+xhr.onreadystatechange = function() {
+	if ( this.readyState == 4 ) {
+		var el = document.getElementById('lipsum');
+
+		if ( this.status == 200 ) {
+			el.innerHTML = this.responseText;
+		}
+
+		readre = Readre(el);
+		readre
+			.addEvent('reflow', function() {
+				// console.log('reflow', this);
+				document.getElementById('n-pages').textContent = this.pages.length;
+			})
+			.addEvent('page', function() {
+				// console.log('page', this);
+				document.getElementById('page-n').textContent = this.page + 1;
+
+				this.page && (localStorage.readrePage = this.page);
+			})
+			.reinit()
+		;
+		localStorage.readrePage && readre.showPage(localStorage.readrePage);
+	}
+};
+xhr.send();
 </script>
 
 </body>
