@@ -1,0 +1,62 @@
+
+html, body {
+	margin: 0;
+	padding: 0;
+	height: 100%;
+}
+#lipsum {
+	position: absolute;
+	top: 20px;
+	bottom: 40px;
+	left: 20px;
+	right: 20px;
+	background: #eee;
+	overflow: hidden;
+}
+#lipsum h1,
+#lipsum h2,
+#lipsum h3,
+#lipsum h4,
+#lipsum p {
+	margin: 1em 0;
+}
+#lipsum > :first-child,
+#lipsum .readre-anti-orphan > :first-child {
+	margin-top: 0;
+}
+#pager {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	line-height: 40px;
+	text-align: center;
+}
+#pager a {
+	text-decoration: none;
+}
+#pager > * + *:before {
+	content: " | ";
+}
+
+.readre-anti-orphan {
+	background: rgba(173, 216, 230, 0.5);
+}
+.readre-reference-child {
+	position: relative;
+}
+.readre-reference-child::after {
+	content: "";
+	display: block;
+	width: 0;
+	height: 0;
+	position: absolute;
+	left: 0;
+	top: 0;
+	z-index: 2;
+	border-width: 20px;
+	border-color: rgba(255, 0, 0, 0.5);
+	border-style: solid;
+	border-bottom-color: transparent;
+	border-right-color: transparent;
+}
