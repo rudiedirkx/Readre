@@ -57,6 +57,12 @@ $html = strip_tags($html, '<' . implode('><', $keepTags) . '>');
 // Replace relative with absolute URLs
 $html = preg_replace('#(href|src)=(["\'])/#', '\1=\2' . $urlPrefix . '/', $html);
 
+// Replace http, with https, IF we're on https. Screw it if the target server doesn't server HTTPS
+$https = !empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) != 'off';
+if ( $https ) {
+	$html = preg_replace('#(["\'])http:#', '\1https:', $html);
+}
+
 // Print
 echo '<meta charset="utf-8" />' . "\n\n";
 echo trim($html) . "\n";
