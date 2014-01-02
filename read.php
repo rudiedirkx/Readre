@@ -65,4 +65,5 @@ if ( $https ) {
 
 // Print
 echo '<meta charset="utf-8" />' . "\n\n";
+echo '<p><a href="' . $url . '">Go to original: ' . $url . '</a></p>' . "\n";
 echo trim($html) . "\n";
