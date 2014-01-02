@@ -10,34 +10,53 @@ if ( empty($_GET['url']) ) {
 
 // Fetch resource
 $url = $_GET['url'];
+$_url = parse_url($url);
+$urlPrefix = $_url['scheme'] . '://' . $_url['host'];
+
 $cid = 'raw-' . base64_encode($url) . '.html';
-$cfile = 'db/' . $cid;
-$html = file_get_contents(($cexists = file_exists($cfile)) ? 'db/' . $cid : $url);
+$cfile = 'cache/' . $cid;
+$html = file_get_contents(($cexists = file_exists($cfile)) ? $cfile : $url);
 $cexists or file_put_contents($cfile, $html);
 
 // Strip all from:
-// - script
-// - link
-// - style
 $html = preg_replace('#<script[\s\S]*?</script>#', '', $html);
 $html = preg_replace('#<link[^>]+?>#', '', $html);
 $html = preg_replace('#<style[\s\S]*?</style>#', '', $html);
 
-// DEBUG //
-// $html = str_replace('class="post"', 'class="dus post ass"', $html);
-// DEBUG //
-
 // Now the hard part: extract readable content
-// - #content
-// - .post
-// - .content
-var_dump(preg_match('#<(\w+)[^>]+id="content"#', $html, $match), $match);
-var_dump(preg_match('#<(\w+)[^>]+class="([^"]+\s+)*post(\s+[^"]+)*"#', $html, $match), $match);
+$candidates = array(
+	'#<(\w+)[^>]+id="content"[^>]*>#', // #content
+	'#<(\w+)[^>]+class="([^"\']+\s+)*post(\s+[^"\']+)*"[^>]*>#', // .post
+	'#<(\w+)[^>]+class="([^"\']+\s+)*content(\s+[^"\']+)*"[^>]*>#', // .content
+);
+foreach ( $candidates as $candidate ) {
+	if ( preg_match($candidate, $html, $match, PREG_OFFSET_CAPTURE) ) {
+		$tag = $match[1][0];
+		$offset = $match[0][1];
+		$html = substr($html, $offset);
+		preg_match_all('#<(/?)' . $tag . '[^>]*>#', $html, $matches, PREG_OFFSET_CAPTURE);
+		$depth = 0;
+		foreach ( $matches[1] as $i => $match ) {
+			$start = !$match[0];
 
-// Strip nonsense
-$tags = array('a', 'p', 'blockquote', 'h2', 'h3', 'h4', 'strong', 'i', 'b', 'br', 'em', 'code');
-// $html = strip_tags($html, '<' . implode('><', $tags) . '>');
+			$depth += $start ? 1 : -1;
+			if ( $depth == 0 ) {
+				$offset = $matches[0][$i][1] + strlen($matches[0][$i][1]);
+				$html = substr($html, 0, $offset + strlen($tag) - 1);
+				break;
+			}
+		}
+		break;
+	}
+}
+
+// Strip other nonsense
+$keepTags = array('a', 'p', 'blockquote', 'h2', 'h3', 'h4', 'strong', 'i', 'b', 'br', 'em', 'code', 'pre', 'img', 'ul', 'ol', 'li');
+$html = strip_tags($html, '<' . implode('><', $keepTags) . '>');
+
+// Replace relative with absolute URLs
+$html = preg_replace('#(href|src)=(["\'])/#', '\1=\2' . $urlPrefix . '/', $html);
 
 // Print
-echo '<meta charset="utf-8" />';
-echo $html;
+echo '<meta charset="utf-8" />' . "\n\n";
+echo trim($html) . "\n";
