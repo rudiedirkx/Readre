@@ -13,7 +13,7 @@ $url = $_GET['url'];
 $_url = parse_url($url);
 $urlPrefix = $_url['scheme'] . '://' . $_url['host'];
 
-$cid = 'raw-' . base64_encode($url) . '.html';
+$cid = 'raw-' . bin2hex($url) . '.html';
 $cfile = 'cache/' . $cid;
 $html = file_get_contents(($cexists = file_exists($cfile)) ? $cfile : $url);
 $cexists or file_put_contents($cfile, $html);
