@@ -26,8 +26,9 @@ $html = preg_replace('#<style[\s\S]*?</style>#', '', $html);
 // Now the hard part: extract readable content
 $candidates = array(
 	'#<(\w+)[^>]+id="content"[^>]*>#', // #content
-	'#<(\w+)[^>]+class="([^"\']+\s+)*post(\s+[^"\']+)*"[^>]*>#', // .post
+	'#<(\w+)[^>]+class="([^"\']+\s+)*postlist(\s+[^"\']+)*"[^>]*>#', // .postlist
 	'#<(\w+)[^>]+class="([^"\']+\s+)*content(\s+[^"\']+)*"[^>]*>#', // .content
+	'#<(\w+)[^>]+class="([^"\']+\s+)*post(\s+[^"\']+)*"[^>]*>#', // .post
 );
 foreach ( $candidates as $candidate ) {
 	if ( preg_match($candidate, $html, $match, PREG_OFFSET_CAPTURE) ) {
@@ -51,7 +52,7 @@ foreach ( $candidates as $candidate ) {
 }
 
 // Strip other nonsense
-$keepTags = array('a', 'p', 'blockquote', 'h2', 'h3', 'h4', 'strong', 'i', 'b', 'br', 'em', 'code', 'pre', 'img', 'ul', 'ol', 'li');
+$keepTags = array('a', 'p', 'blockquote', 'h2', 'h3', 'h4', 'strong', 'i', 'b', 'br', 'em', 'code', 'pre', 'img', 'ul', 'ol', 'li', 'table', 'tr', 'td', 'th');
 $html = strip_tags($html, '<' . implode('><', $keepTags) . '>');
 
 // Replace relative with absolute URLs
