@@ -29,6 +29,7 @@ $candidates = array(
 	'#<(\w+)[^>]+class="([^"\']+\s+)*postlist(\s+[^"\']+)*"[^>]*>#', // .postlist
 	'#<(\w+)[^>]+class="([^"\']+\s+)*content(\s+[^"\']+)*"[^>]*>#', // .content
 	'#<(\w+)[^>]+class="([^"\']+\s+)*post(\s+[^"\']+)*"[^>]*>#', // .post
+	'#<(\w+)[^>]+class="([^"\']+\s+)*story-text(\s+[^"\']+)*"[^>]*>#', // .story-text
 );
 foreach ( $candidates as $candidate ) {
 	if ( preg_match($candidate, $html, $match, PREG_OFFSET_CAPTURE) ) {
